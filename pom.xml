@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.redhat</groupId>
+    <artifactId>commons</artifactId>
+    <version>1.0</version>
+
+    <name>Red Hat Common Library</name>
+    <description>Red Hat Common Library</description>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- Project support -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <org.apache.maven.plugins_maven-compiler-plugin>3.8.1</org.apache.maven.plugins_maven-compiler-plugin>
+
+        <org.apache.maven.wagon_wagon-ssh>3.4.1</org.apache.maven.wagon_wagon-ssh>
+
+        <org.apache.maven.plugins_maven-install-plugin>3.0.0-M1</org.apache.maven.plugins_maven-install-plugin>
+        <org.apache.maven.plugins_maven-deploy-plugin>3.0.0-M1</org.apache.maven.plugins_maven-deploy-plugin>
+        <org.apache.maven.plugins_maven-release-plugin>3.0.0-M1</org.apache.maven.plugins_maven-release-plugin>
+
+        <java_version>1.8</java_version>
+
+        <!-- External library support -->
+        <org.json_json>20200518</org.json_json>
+
+        <com.fasterxml.jackson.core_jackson-databind>2.11.0</com.fasterxml.jackson.core_jackson-databind>
+        <com.fasterxml.jackson.dataformat_jackson-dataformat-xml>2.11.0</com.fasterxml.jackson.dataformat_jackson-dataformat-xml>
+        <com.fasterxml.jackson.dataformat_jackson-dataformat-yaml>2.11.0</com.fasterxml.jackson.dataformat_jackson-dataformat-yaml>
+
+        <org.apache.commons_commons-lang3>3.10</org.apache.commons_commons-lang3>
+        <commons-io_commons-io>2.7</commons-io_commons-io>
+
+        <!-- JEE Support -->
+        <javax.servlet_javax.servlet-api>4.0.1</javax.servlet_javax.servlet-api>
+        <javax_javaee-api>8.0.1</javax_javaee-api>
+
+        <!-- Logging support -->
+        <org.slf4j_slf4j-log4j12>2.0.0-alpha1</org.slf4j_slf4j-log4j12>
+        <org.jboss.logging_jboss-logging>3.4.1.Final-redhat-00001</org.jboss.logging_jboss-logging>
+
+        <!-- Testing support -->
+        <junit_junit>4.13</junit_junit>
+        <org.mockito_mockito-all>2.0.2-beta</org.mockito_mockito-all>
+    </properties>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh</artifactId>
+                <version>${org.apache.maven.wagon_wagon-ssh}</version>
+            </extension>
+        </extensions>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${org.apache.maven.plugins_maven-install-plugin}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${org.apache.maven.plugins_maven-deploy-plugin}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${org.apache.maven.plugins_maven-release-plugin}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${org.apache.maven.plugins_maven-compiler-plugin}</version>
+
+                <configuration>
+                    <source>${java_version}</source>
+                    <target>${java_version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- External library support -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${org.json_json}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${com.fasterxml.jackson.core_jackson-databind}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${com.fasterxml.jackson.dataformat_jackson-dataformat-xml}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>${com.fasterxml.jackson.dataformat_jackson-dataformat-yaml}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${org.apache.commons_commons-lang3}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io_commons-io}</version>
+        </dependency>
+
+        <!-- JEE Support -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet_javax.servlet-api}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javax_javaee-api}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Logging support -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>${org.jboss.logging_jboss-logging}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Testing Support -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${org.slf4j_slf4j-log4j12}</version>
+            <scope>test</scope>
+        </dependency>
+
+		<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit_junit}</version>
+            <scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+            <version>${org.mockito_mockito-all}</version>
+			<scope>test</scope>
+		</dependency>
+    </dependencies>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<distributionManagement>
+				<repository>
+					<id>ssh-repository</id>
+					<name>GSS RDU Repo</name>
+					<url>sftp://root@gss-rdu-repo.usersys.redhat.com/var/repo/maven/release</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+    </profiles>
+</project>
