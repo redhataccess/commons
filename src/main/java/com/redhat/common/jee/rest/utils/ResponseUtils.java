@@ -1,8 +1,10 @@
 package com.redhat.common.jee.rest.utils;
 
 import com.redhat.common.utils.HttpStatusEnum;
+import java.util.function.UnaryOperator;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 /**
  * Response utility class.
@@ -124,8 +126,20 @@ public final class ResponseUtils {
      *
      * @return a response for the entity and status.
      */
-    public static <T> Response createResponseForEntity(final T entity, final HttpStatusEnum status) {
+    public static <T, U extends UnaryOperator<? extends ResponseBuilder>> Response createResponseForEntity(final T entity, final U unary, final HttpStatusEnum status) {
         return createResponseForEntity(entity, status.getStatusCode());
+    }
+
+    /**
+     * Create an a response for entity whose status is status.
+     *
+     * @param entity create a response for this.
+     * @param status the Http Status for the response.
+     *
+     * @return a response for the entity and status.
+     */
+    public static <T> Response createResponseForEntity(final T entity, final HttpStatusEnum status) {
+        return createResponseForEntity(entity, u -> u, status);
     }
 
     /**

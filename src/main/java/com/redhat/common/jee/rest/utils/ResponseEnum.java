@@ -1,8 +1,9 @@
 package com.redhat.common.jee.rest.utils;
 
 import com.redhat.common.utils.HttpStatusEnum;
-import javax.ws.rs.core.MediaType;
+import java.util.function.UnaryOperator;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 /**
  *
@@ -40,11 +41,15 @@ public enum ResponseEnum {
         return httpStatus;
     }
 
+    public <T, U extends UnaryOperator<? extends ResponseBuilder>> Response createResponseForEntity(final T entity, final U unary) {
+        return ResponseUtils.createResponseForEntity(entity, unary, getHttpStatus());
+    }
+
     public <T> Response createResponseForEntity(final T entity) {
         return ResponseUtils.createResponseForEntity(entity, getHttpStatus());
     }
 
-    public <T> Response createResponseForEntity(final T entity, final MediaType mediaType) {
-        return ResponseUtils.createResponseForEntity(entity, getHttpStatus(), mediaType);
+    public Response createResponse() {
+
     }
 }
