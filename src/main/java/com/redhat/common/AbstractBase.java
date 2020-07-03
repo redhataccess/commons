@@ -1,7 +1,8 @@
 package com.redhat.common;
 
 import com.redhat.common.utils.LoggerUtils;
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Our abstract base class.
@@ -12,7 +13,7 @@ public class AbstractBase {
     /**
      * Our logger.
      */
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * Return our logger.

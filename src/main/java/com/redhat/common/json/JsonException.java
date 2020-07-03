@@ -1,4 +1,4 @@
-package com.redhat.common.utils;
+package com.redhat.common.json;
 
 /**
  *

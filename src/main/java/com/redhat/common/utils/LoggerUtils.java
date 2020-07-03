@@ -1,7 +1,8 @@
 package com.redhat.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A logging utility class.
@@ -12,7 +13,7 @@ public final class LoggerUtils {
     /**
      * Our personal logger. Used in case someone decides to present a null logger!
      */
-    private static final Logger logger = Logger.getLogger(LoggerUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoggerUtils.class);
 
     /**
      * Return our personal logger.

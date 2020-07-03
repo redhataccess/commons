@@ -1,18 +1,22 @@
-package com.redhat.common.utils;
+package com.redhat.common.json.utils;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.redhat.common.json.JsonException;
+import com.redhat.common.utils.LoggerUtils;
+import com.redhat.common.utils.Strings;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import org.jboss.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JSON Utilities.
@@ -20,7 +24,7 @@ import org.json.JSONObject;
  * @author sfloess
  */
 public final class JsonUtils {
-    private static final Logger logger = Logger.getLogger(JsonUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
     private static Logger getLogger() {
         return logger;

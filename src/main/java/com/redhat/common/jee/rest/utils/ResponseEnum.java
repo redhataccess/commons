@@ -41,15 +41,11 @@ public enum ResponseEnum {
         return httpStatus;
     }
 
-    public <T, U extends UnaryOperator<? extends ResponseBuilder>> Response createResponseForEntity(final T entity, final U unary) {
-        return ResponseUtils.createResponseForEntity(entity, unary, getHttpStatus());
-    }
-
-    public <T> Response createResponseForEntity(final T entity) {
-        return ResponseUtils.createResponseForEntity(entity, getHttpStatus());
+    public <U extends UnaryOperator<ResponseBuilder>> Response createResponse(final U unary) {
+        return unary.apply(Response.status(getHttpStatus().getStatusCode())).build();
     }
 
     public Response createResponse() {
-
+        return createResponse(u -> u);
     }
 }
