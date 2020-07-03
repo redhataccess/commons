@@ -4,7 +4,7 @@
 
     <groupId>com.redhat</groupId>
     <artifactId>commons</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <name>Red Hat Common Library</name>
     <description>Red Hat Common Library</description>
@@ -28,9 +28,9 @@
         <!-- External library support -->
         <org.json_json>20200518</org.json_json>
 
-        <com.fasterxml.jackson.core_jackson-databind>2.11.0</com.fasterxml.jackson.core_jackson-databind>
-        <com.fasterxml.jackson.dataformat_jackson-dataformat-xml>2.11.0</com.fasterxml.jackson.dataformat_jackson-dataformat-xml>
-        <com.fasterxml.jackson.dataformat_jackson-dataformat-yaml>2.11.0</com.fasterxml.jackson.dataformat_jackson-dataformat-yaml>
+        <com.fasterxml.jackson.core_jackson-databind>2.11.1</com.fasterxml.jackson.core_jackson-databind>
+        <com.fasterxml.jackson.dataformat_jackson-dataformat-xml>2.11.1</com.fasterxml.jackson.dataformat_jackson-dataformat-xml>
+        <com.fasterxml.jackson.dataformat_jackson-dataformat-yaml>2.11.1</com.fasterxml.jackson.dataformat_jackson-dataformat-yaml>
 
         <org.apache.commons_commons-lang3>3.10</org.apache.commons_commons-lang3>
         <commons-io_commons-io>2.7</commons-io_commons-io>
