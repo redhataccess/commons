@@ -1,4 +1,4 @@
-package com.redhat.common.utils;
+package com.redhat.common.jee.rest.utils;
 
 import javax.ws.rs.core.Response;
 

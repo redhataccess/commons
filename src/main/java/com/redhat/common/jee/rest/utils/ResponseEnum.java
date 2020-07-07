@@ -1,6 +1,5 @@
 package com.redhat.common.jee.rest.utils;
 
-import com.redhat.common.utils.HttpStatusEnum;
 import java.util.function.UnaryOperator;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -43,6 +42,10 @@ public enum ResponseEnum {
 
     public <U extends UnaryOperator<ResponseBuilder>> Response createResponse(final U unary) {
         return unary.apply(Response.status(getHttpStatus().getStatusCode())).build();
+    }
+
+    public <U extends UnaryOperator<ResponseBuilder>> ResponseBuilder createHeader(final ResponseBuilder builder, final String header, final Object val) {
+        return builder.header(header, val);
     }
 
     public Response createResponse() {

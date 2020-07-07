@@ -1,4 +1,4 @@
-package com.redhat.common.jee.rest.utils;
+package com.redhat.common.jee.servlet.utils;
 
 import java.util.Collections;
 import java.util.HashMap;

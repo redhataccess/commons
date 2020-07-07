@@ -1,7 +1,7 @@
 package com.redhat.common.jee.rest.proxy;
 
 import com.redhat.common.AbstractBase;
-import com.redhat.common.jee.rest.utils.HttpServletRequestUtils;
+import com.redhat.common.jee.servlet.utils.HttpServletRequestUtils;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
