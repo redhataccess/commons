@@ -1,4 +1,4 @@
-package com.redhat.common.json;
+package com.redhat.common.markup.json;
 
 /**
  *

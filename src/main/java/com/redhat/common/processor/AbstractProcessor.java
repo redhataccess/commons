@@ -1,6 +1,6 @@
 package com.redhat.common.processor;
 
-import com.redhat.common.json.AbstractJsonBase;
+import com.redhat.common.markup.json.AbstractJsonBase;
 
 /**
  * Abstract base class for processors

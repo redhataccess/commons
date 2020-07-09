@@ -2,13 +2,12 @@ package com.redhat.common.jee.rest.utils;
 
 import java.util.function.UnaryOperator;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 /**
  *
  * @author sfloess
  */
-public enum ResponseEnum {
+public enum ResponseBuilder {
     OK(HttpStatusEnum.OK),
     CREATED(HttpStatusEnum.CREATED),
     ACCEPTED(HttpStatusEnum.ACCEPTED),
@@ -32,7 +31,7 @@ public enum ResponseEnum {
 
     private final HttpStatusEnum httpStatus;
 
-    private ResponseEnum(final HttpStatusEnum httpStatus) {
+    private ResponseBuilder(final HttpStatusEnum httpStatus) {
         this.httpStatus = httpStatus;
     }
 
@@ -40,15 +39,15 @@ public enum ResponseEnum {
         return httpStatus;
     }
 
-    public <U extends UnaryOperator<ResponseBuilder>> Response createResponse(final U unary) {
+    public <U extends UnaryOperator<Response.ResponseBuilder>> Response buildResponse(final U unary) {
         return unary.apply(Response.status(getHttpStatus().getStatusCode())).build();
     }
 
-    public <U extends UnaryOperator<ResponseBuilder>> ResponseBuilder createHeader(final ResponseBuilder builder, final String header, final Object val) {
+    public <U extends UnaryOperator<Response.ResponseBuilder>> Response.ResponseBuilder buildHeader(final Response.ResponseBuilder builder, final String header, final Object val) {
         return builder.header(header, val);
     }
 
     public Response createResponse() {
-        return createResponse(u -> u);
+        return buildResponse(u -> u);
     }
 }
