@@ -1,3 +1,3 @@
 # commons
 
-Java based common library for projects.
+Java based common library.
