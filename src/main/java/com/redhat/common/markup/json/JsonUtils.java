@@ -25,7 +25,7 @@ public final class JsonUtils {
     }
 
     public static <T> T jsonObjectToObject(final JSONObject json, final Class<T> klass) {
-        return JSON.strToObject(Objects.requireNonNull(json, "Cannot have a null JSON object!").toString(), klass);
+        return JSON.asType(Objects.requireNonNull(json, "Cannot have a null JSON object!").toString(), klass);
     }
 
     /**

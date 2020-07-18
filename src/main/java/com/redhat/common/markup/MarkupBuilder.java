@@ -2,11 +2,13 @@ package com.redhat.common.markup;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.redhat.common.utils.LoggerUtils;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -51,19 +53,32 @@ public enum MarkupBuilder {
         this.factorySupplier = factorySupplier;
     }
 
+    /**
+     * Allows us to encapsulate a JSONFactory.
+     */
     Supplier<JsonFactory> getFactorySupplier() {
         return factorySupplier;
     }
 
+    /**
+     * Encapsulated JSONFactory.
+     */
     JsonFactory createFactory() {
         return getFactorySupplier().get();
     }
 
+    /**
+     * The mapper based upon the factory for the enum.
+     */
     public ObjectMapper createMapper() {
-        return new ObjectMapper(createFactory()).configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return new ObjectMapper(createFactory())
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
+                .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
+                .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_VALUES, true);
     }
 
-    public <T> T strToObject(final String str, final Class<T> klass) {
+    public <T> T asType(final String str, final Class<T> klass) {
         try {
             return createMapper().readValue(str, klass);
         } catch (final Exception exception) {
@@ -73,7 +88,34 @@ public enum MarkupBuilder {
         }
     }
 
-    public JSONObject strToJsonObject(final String str) {
-        return new JSONObject(strToObject(str, HashMap.class));
+    /**
+     * Convert <code>str</code> to a JSONObject. Assumption here is the string is in the correct markup for the enum.
+     */
+    public JSONObject asJsonObject(final String str) {
+        return new JSONObject(asType(str, HashMap.class));
+    }
+
+    /**
+     * Takes the markup denoted in <code>str</code> and converts to a map.
+     */
+    public Map asMap(final String str) {
+        return asType(str, HashMap.class);
+    }
+
+    /**
+     * Takes the JSONObject and converts to the correct markup based upon the enum.
+     */
+    public String toString(final Map map) {
+        try {
+            return createMapper().writeValueAsString(map);
+        } catch (final Exception exception) {
+            LoggerUtils.logError(getLogger(), exception, "Trouble converting:\n", map);
+
+            throw new MarkupException("Trouble writing:  " + map, exception);
+        }
+    }
+
+    public String toString(final JSONObject jsonObject) {
+        return toString(jsonObject.toMap());
     }
 }
