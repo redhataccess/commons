@@ -78,6 +78,9 @@ public enum MarkupBuilder {
                 .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_VALUES, true);
     }
 
+    /**
+     * Converts the string denoted in the markup to a type of class.
+     */
     public <T> T asType(final String str, final Class<T> klass) {
         try {
             return createMapper().readValue(str, klass);
@@ -115,6 +118,9 @@ public enum MarkupBuilder {
         }
     }
 
+    /**
+     * Converts the JSON Object to the proper markup.
+     */
     public String toString(final JSONObject jsonObject) {
         return toString(jsonObject.toMap());
     }
