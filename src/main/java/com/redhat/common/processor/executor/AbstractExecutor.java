@@ -48,7 +48,7 @@ public abstract class AbstractExecutor<T, P extends Processor<T>> extends Abstra
         try {
             return doPostProcess(processor, toProcess, doProcess(processor, doPreProcess(processor, toProcess)));
         } catch (final Throwable throwable) {
-            logError(throwable, "Trouble processing: ", toProcess);
+            logError(throwable, "Processor [", processor, "] had trouble processing: ", toProcess);
 
             doPostProcessFailure(processor, toProcess, throwable);
 
