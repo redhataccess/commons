@@ -27,6 +27,7 @@ jobs:
       run: mvn -B package --file pom.xml
   
   version:
+    needs: [build]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.event.pusher.email != 'revision-updater@redhat.com'
     runs-on: ubuntu-latest
     strategy:
