@@ -35,7 +35,7 @@ jobs:
       - name: Set up ${{ matrix.java }}
         uses: actions/setup-java@v1
         with:
-         java-version: ${{ matrix.java }}
+         java-version: ${{matrix.java}}
        
       - name: Version rev with Maven
         run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion} versions:commit --file pom.xml
