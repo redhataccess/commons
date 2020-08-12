@@ -4,7 +4,7 @@
 
     <groupId>com.redhat</groupId>
     <artifactId>commons</artifactId>
-    <version>1.10</version>
+    <version>1.11</version>
 
     <name>Red Hat Common Library</name>
     <description>Red Hat Common Library</description>
