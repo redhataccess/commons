@@ -49,7 +49,7 @@
 
         <!-- Github support -->
         <project.scm.id>github</project.scm.id>
-        <git.repository>aprajshekhar/commons</git.repository>
+        <git.repository>redhataccess/commons</git.repository>
     </properties>
 
     <build>
@@ -101,7 +101,7 @@
         <repository>
             <id>github</id>
             <name>GitHub</name>
-            <url>https://maven.pkg.github.com/aprajshekhar/commons</url>
+            <url>https://maven.pkg.github.com/redhataccess/commons</url>
         </repository>
     </distributionManagement>
 
