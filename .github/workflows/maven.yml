@@ -63,6 +63,7 @@ jobs:
             username:    sfloess
             password:    ${{ secrets.BINTRAY }}
             repository:  https://api.bintray.com/maven/redhataccess/maven/commons
-            maven-goals: mvn -B release:prepare -DignoreSnapshots -Dresume=false release:perform
+            maven-goals: release:prepare release:perform
+            maven-args:  -B -DignoreSnapshots -Dresume=false
     
   
