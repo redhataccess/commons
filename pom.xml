@@ -4,7 +4,7 @@
 
     <groupId>com.redhat</groupId>
     <artifactId>commons</artifactId>
-    <version>1.35</version>
+    <version>1.36-SNAPSHOT</version>
 
     <name>Red Hat Common Library</name>
     <description>Red Hat Common Library</description>
@@ -95,7 +95,7 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/${git.repository}.git</developerConnection>
-      <tag>commons-1.35</tag>
+      <tag>HEAD</tag>
   </scm>
     <distributionManagement>
         <repository>
