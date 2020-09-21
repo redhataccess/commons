@@ -57,5 +57,11 @@ jobs:
         run: mvn -B release:prepare -DignoreSnapshots -Dresume=false release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish to Bintay
+        uses: simontunnat/action-maven-deploy@v1
+        with:
+            username:   sfloess
+            password:   ${{ secrets.BINTRAY }}
+            repository: https://api.bintray.com/maven/redhataccess/maven/commons
     
   
