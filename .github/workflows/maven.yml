@@ -36,6 +36,7 @@ jobs:
         java: [1.8]
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up ${{ matrix.java }}
         uses: actions/setup-java@v1
         with:
@@ -43,20 +44,27 @@ jobs:
        
       - name: Version rev with Maven
         run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}-SNAPSHOT versions:commit --file pom.xml
+
       - name: Commit files
         run: |
           git config --local user.email "revision-updater@redhat.com"
           git config --local user.name "Version Upgrader"
           git commit -m "Version upgrade" -a
           echo ::set-env name=TAG_NAME::$(mvn help:evaluate -Dexpression=project.version -DforceStdout)
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish Jar
         run: mvn -B release:prepare -DignoreSnapshots -Dresume=false release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Version rev with Maven
+        run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion} versions:commit --file pom.xml
+
       - name: Publish to Bintay
         uses: simontunnat/action-maven-deploy@v1
         with:
@@ -64,6 +72,5 @@ jobs:
             password:    "${{ secrets.BINTRAY }}"
             repository:  "https://api.bintray.com/maven/redhataccess/maven/commons/;publish=1"
             maven-goals: deploy
-            maven-args:  -B -DignoreSnapshots -Dresume=false
     
   
