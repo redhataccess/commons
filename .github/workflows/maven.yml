@@ -61,8 +61,8 @@ jobs:
         uses: simontunnat/action-maven-deploy@v1
         with:
             username:    sfloess
-            password:    ${{ secrets.BINTRAY }}
-            repository:  https://api.bintray.com/maven/redhataccess/maven/commons/;publish=1
+            password:    "${{ secrets.BINTRAY }}"
+            repository:  "https://api.bintray.com/maven/redhataccess/maven/commons/;publish=1"
             maven-goals: release:prepare release:perform
             maven-args:  -B -DignoreSnapshots -Dresume=false
     
