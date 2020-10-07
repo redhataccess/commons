@@ -181,17 +181,12 @@
 			<scope>test</scope>
 		</dependency>
     </dependencies>
-
-	<profiles>
-		<profile>
-			<id>release</id>
-			<distributionManagement>
-				<repository>
-					<id>ssh-repository</id>
-					<name>GSS RDU Repo</name>
-					<url>sftp://root@gss-rdu-repo.usersys.redhat.com/var/repo/maven/release</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-    </profiles>
+        
+    <distributionManagement>
+        <repository>
+            <id>bintray</id>
+            <name>redhataccess</name>
+            <url>https://api.bintray.com/maven/redhataccess/maven/pipeline/;publish=1</url>
+        </repository>
+    </distributionManagement>
 </project>

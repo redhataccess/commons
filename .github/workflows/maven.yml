@@ -1,67 +1,54 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI with Maven
+name: Java CD-CI with Maven
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    push:
+        branches: [ master ]
+
+    pull_request:
+        branches: [ master ]
 
 jobs:
-  build:
+    build:
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.event.pusher.email != 'revision-updater@redhat.com'
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [1.8]
-    
-    steps:
-    - uses: actions/checkout@v2
+        strategy:
+            matrix:
+                java: [1.8]
 
-    - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v1
-      with:
-        java-version: ${{ matrix.java }}
-        server-id: github
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Setup JDK ${{ matrix.java }}
+              uses: actions/setup-java@v1
+              with:
+                  java-version: ${{ matrix.java }}
+                  server-id: github
+                   
+            - name: Setup ~/.m2/settings.xml
+              uses: whelk-io/maven-settings-xml-action@v12
+              with:
+                  servers: '[{"id": "bintray", "username": "sfloess", "password": "${{ secrets.BINTRAY }}"}]' 
+ 
+            - name: Version bump for pom.xml
+              run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion} versions:commit --file pom.xml
+              
+            - name: Update versions for latest libraries
+              run: |
+                  echo "GIT_TAG=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+            - name: Build and deploy to Bintray
+              run: mvn -B clean install deploy
   
-  version:
-    needs: [build]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.event.pusher.email != 'revision-updater@redhat.com'
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [1.8]
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up ${{ matrix.java }}
-        uses: actions/setup-java@v1
-        with:
-         java-version: ${{matrix.java}}
-
-      - name: Setup ~/.m2/settings.xml
-        uses: whelk-io/maven-settings-xml-action@v12
-        with:
-            servers: '[{"id": "bintray", "username": "sfloess", "password": "${{ secrets.BINTRAY }}"}]'
-       
-      - name: Version rev with Maven
-        run: |
-            mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}-SNAPSHOT versions:commit --file pom.xml
-            echo "GIT_TAG=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-
-      - name: Build and deploy to Bintray
-        run: mvn -B clean install deploy
-
-      - name: Commit files
-        run: |
-          git config --local user.email "revision-updater@redhat.com"
-          git config --local user.name "Version Upgrader"
-          git commit -m "Version upgrade" -a
-          echo "TAG = $GIT_TAG"
-          git tag "$GIT_TAG"
-          git push origin master
-          git push origin "$GIT_TAG"
+            - name: Commit files
+              run: |
+                  git config --local user.email "revision-updater@redhat.com"
+                  git config --local user.name "Version Upgrader"
+                  git commit -m "Version upgrade" -a
+                  echo "TAG = $GIT_TAG"
+                  git tag "$GIT_TAG"
+                  git push origin master
+                  git push origin "$GIT_TAG"
