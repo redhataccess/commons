@@ -25,7 +25,7 @@
 
         <java_version>1.8</java_version>
 
-        <!-- External library support -->
+            <!-- External library support -->
         <org.json_json>20200518</org.json_json>
 
         <com.fasterxml.jackson.core_jackson-databind>2.11.1</com.fasterxml.jackson.core_jackson-databind>
@@ -35,19 +35,19 @@
         <org.apache.commons_commons-lang3>3.11</org.apache.commons_commons-lang3>
         <commons-io_commons-io>2.7</commons-io_commons-io>
 
-        <!-- JEE Support -->
+            <!-- JEE Support -->
         <javax.servlet_javax.servlet-api>4.0.1</javax.servlet_javax.servlet-api>
         <javax_javaee-api>8.0.1</javax_javaee-api>
 
-        <!-- Logging support -->
+            <!-- Logging support -->
         <org.slf4j_slf4j-log4j12>2.0.0-alpha1</org.slf4j_slf4j-log4j12>
         <org.jboss.logging_jboss-logging>3.4.1.Final-redhat-00001</org.jboss.logging_jboss-logging>
 
-        <!-- Testing support -->
+            <!-- Testing support -->
         <junit_junit>4.13</junit_junit>
         <org.mockito_mockito-all>2.0.2-beta</org.mockito_mockito-all>
 
-        <!-- Github support -->
+            <!-- Github support -->
         <project.scm.id>github</project.scm.id>
         <git.repository>redhataccess/commons</git.repository>
     </properties>
@@ -95,16 +95,8 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/${git.repository}.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub</name>
-            <url>https://maven.pkg.github.com/redhataccess/commons</url>
-        </repository>
-    </distributionManagement>
-
+        <tag>HEAD</tag>
+    </scm>
 
     <dependencies>
         <!-- External library support -->
@@ -151,7 +143,7 @@
             <version>${javax.servlet_javax.servlet-api}</version>
             <scope>provided</scope>
         </dependency>
-       
+
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -167,21 +159,21 @@
         </dependency>
 
         <!-- Testing Support -->
-		<dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit_junit}</version>
             <scope>test</scope>
-		</dependency>
+        </dependency>
 
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
             <version>${org.mockito_mockito-all}</version>
-			<scope>test</scope>
-		</dependency>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-        
+
     <distributionManagement>
         <repository>
             <id>bintray</id>
