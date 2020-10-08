@@ -174,7 +174,6 @@
         </dependency>
     </dependencies>
 
-<<<<<<< HEAD
     <distributionManagement>
         <repository>
             <id>bintray</id>
@@ -182,18 +181,4 @@
             <url>https://api.bintray.com/maven/redhataccess/maven/pipeline/;publish=1</url>
         </repository>
     </distributionManagement>
-=======
-	<profiles>
-		<profile>
-			<id>release</id>
-			<distributionManagement>
-				<repository>
-					<id>ssh-repository</id>
-					<name>GSS RDU Repo</name>
-					<url>sftp://root@gss-rdu-repo.usersys.redhat.com/var/repo/maven/release</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-    </profiles>
->>>>>>> 61ddcc0... NA - removed SNAPSHOT from version
 </project>
