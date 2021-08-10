@@ -1,7 +1,7 @@
 package com.redhat.common.jee.rest.utils;
 
-import java.util.function.UnaryOperator;
 import javax.ws.rs.core.Response;
+import java.util.function.UnaryOperator;
 
 /**
  *

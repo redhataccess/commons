@@ -1,9 +1,9 @@
 package com.redhat.common.jee.servlet.utils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Utility class for HttpServletRequests. This class is not unit tested as the

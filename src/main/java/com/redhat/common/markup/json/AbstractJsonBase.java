@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.redhat.common.AbstractBase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,7 +1,5 @@
 package com.redhat.common;
 
-import com.redhat.common.markup.json.*;
-
 /**
  *
  * @author sfloess

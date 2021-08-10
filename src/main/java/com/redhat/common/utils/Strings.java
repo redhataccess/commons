@@ -1,8 +1,9 @@
 package com.redhat.common.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
 import java.util.UUID;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *

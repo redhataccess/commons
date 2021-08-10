@@ -3,6 +3,7 @@ package com.redhat.common.processor.executor;
 import com.redhat.common.AbstractBase;
 import com.redhat.common.processor.Processor;
 import com.redhat.common.processor.ProcessorException;
+
 import java.util.Objects;
 
 /**
