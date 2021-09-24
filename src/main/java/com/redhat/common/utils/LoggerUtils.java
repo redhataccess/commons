@@ -30,8 +30,7 @@ public final class LoggerUtils {
      * @return our personal LOGGER.
      */
     private static Logger warnNullLogger() {
-        getLogger().log(Level.SEVERE, msg);..
-        warn("Requested logging with null logger - using " + LoggerUtils.class.getName());
+        getLogger().log(Level.WARNING, "Requested logging with null logger - using " + LoggerUtils.class.getName());
 
         return getLogger();
     }
@@ -47,14 +46,50 @@ public final class LoggerUtils {
     }
 
     /**
-     * If <code>LOGGER</code> is null, return our personal logger. Otherwise return the logger presented.
+     * If <code>logger</code> is null, return our personal logger. Otherwise return the logger presented.
      *
      * @param logger to check for null.
      *
-     * @return our personal LOGGER if <code>LOGGER</code>. Otherwise return the LOGGER presented.
+     * @return our personal logger if <code>LOGGER</code>. Otherwise return the logger presented.
      */
     static Logger computeLogger(final Logger logger) {
         return null == logger ? warnNullLogger() : logger;
+    }
+
+    static void log(final Logger logger, final Level level, final Throwable throwable, final Object... toLog) {
+        computeLogger(logger).log(level, StringUtils.join(toLog), throwable);
+    }
+
+    static void log(final Logger logger, final Level level, final Object... toLog) {
+        computeLogger(logger).log(level, StringUtils.join(toLog));
+    }
+
+    /**
+     * Return if <code>logger</code> is set to log level <code>level</level>.
+     *
+     * @param logger to check its logging level.
+     * @param level  the log level to checj.
+     *
+     * @return if <code>logger</code> is set to log level <code>level</level> or false if not.
+     */
+    static boolean isLogLevel(final Logger logger, final Level level) {
+        return level == computeLogger(logger).getLevel();
+    }
+
+    public static boolean isDebugLevel(final Logger logger) {
+        return isLogLevel(logger, Level.FINE);
+    }
+
+    public static boolean isInfoLevel(final Logger logger) {
+        return isLogLevel(logger, Level.INFO);
+    }
+
+    public static boolean isWarningLevel(final Logger logger) {
+        return isLogLevel(logger, Level.WARNING);
+    }
+
+    public static boolean isErrorLevel(final Logger logger) {
+        return isLogLevel(logger, Level.SEVERE);
     }
 
     /**
@@ -65,7 +100,7 @@ public final class LoggerUtils {
      * @param toLog     the debug message.
      */
     public static void logDebug(final Logger logger, final Throwable throwable, final Object... toLog) {
-        computeLogger(logger).debug(StringUtils.join(toLog), throwable);
+        log(logger, Level.FINE, StringUtils.join(toLog), throwable);
     }
 
     /**
@@ -75,7 +110,7 @@ public final class LoggerUtils {
      * @param toLog  the debug message.
      */
     public static void logDebug(final Logger logger, final Object... toLog) {
-        computeLogger(logger).debug(StringUtils.join(toLog));
+        log(logger, Level.FINE, StringUtils.join(toLog));
     }
 
     /**
@@ -86,7 +121,7 @@ public final class LoggerUtils {
      * @param toLog     the debug message.
      */
     public static void logIfDebug(final Logger logger, final Throwable throwable, final Object... toLog) {
-        if (computeLogger(logger).isDebugEnabled()) {
+        if (isDebugLevel(logger)) {
             logDebug(logger, throwable, toLog);
         }
     }
@@ -98,7 +133,7 @@ public final class LoggerUtils {
      * @param toLog  the debug message.
      */
     public static void logIfDebug(final Logger logger, final Object... toLog) {
-        if (computeLogger(logger).isDebugEnabled()) {
+        if (isDebugLevel(logger)) {
             logDebug(logger, toLog);
         }
     }
@@ -111,7 +146,7 @@ public final class LoggerUtils {
      * @param toLog     the debug message.
      */
     public static void logInfo(final Logger logger, final Throwable throwable, final Object... toLog) {
-        computeLogger(logger).info(StringUtils.join(toLog), throwable);
+        log(logger, Level.INFO, StringUtils.join(toLog), throwable);
     }
 
     /**
@@ -121,7 +156,7 @@ public final class LoggerUtils {
      * @param toLog  the debug message.
      */
     public static void logInfo(final Logger logger, final Object... toLog) {
-        computeLogger(logger).info(StringUtils.join(toLog));
+        log(logger, Level.INFO, StringUtils.join(toLog));
     }
 
     /**
@@ -132,7 +167,7 @@ public final class LoggerUtils {
      * @param toLog     the info message.
      */
     public static void logIfInfo(final Logger logger, final Throwable throwable, final Object... toLog) {
-        if (computeLogger(logger).isInfoEnabled()) {
+        if (isInfoLevel(logger)) {
             logInfo(logger, throwable, toLog);
         }
     }
@@ -144,7 +179,7 @@ public final class LoggerUtils {
      * @param toLog  the info message.
      */
     public static void logIfInfo(final Logger logger, final Object... toLog) {
-        if (computeLogger(logger).isInfoEnabled()) {
+        if (isInfoLevel(logger)) {
             logInfo(logger, toLog);
         }
     }
@@ -157,7 +192,7 @@ public final class LoggerUtils {
      * @param toLog     the warning message.
      */
     public static void logWarning(final Logger logger, final Throwable throwable, final String... toLog) {
-        computeLogger(logger).warn(StringUtils.join(toLog), throwable);
+        log(logger, Level.WARNING, StringUtils.join(toLog), throwable);
     }
 
     /**
@@ -167,7 +202,7 @@ public final class LoggerUtils {
      * @param toLog  the warning message.
      */
     public static void logWarning(final Logger logger, final Object... toLog) {
-        computeLogger(logger).warn(StringUtils.join(toLog));
+        log(logger, Level.WARNING, StringUtils.join(toLog));
     }
 
     /**
@@ -178,7 +213,7 @@ public final class LoggerUtils {
      * @param toLog     the error message.
      */
     public static void logError(final Logger logger, final Throwable throwable, final Object... toLog) {
-        computeLogger(logger).error(StringUtils.join(toLog), throwable);
+        log(logger, Level.SEVERE, StringUtils.join(toLog), throwable);
     }
 
     /**
@@ -188,6 +223,6 @@ public final class LoggerUtils {
      * @param toLog  the error message.
      */
     public static void logError(final Logger logger, final Object... toLog) {
-        computeLogger(logger).error(StringUtils.join(toLog));
+        log(logger, Level.SEVERE, StringUtils.join(toLog));
     }
 }
